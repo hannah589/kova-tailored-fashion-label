@@ -1,0 +1,254 @@
+@import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*Main to take the remaining available space*/
+main {
+  flex: 1;
+}
+
+/* login form */
+
+/* =========================
+   Sign Up Form
+========================= */
+
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #f7f7fb;
+}
+
+.form-box {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #e5e5eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  color: var(--accent);
+}
+
+/* Header */
+
+.form-box > div:first-child {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.form-logo {
+  width: 64px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.form-box h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #17171c;
+}
+
+/* Form */
+
+.form-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Input groups */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #25252c;
+}
+
+.input-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #b9b9c3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #17171c;
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input::placeholder {
+  color: #666671;
+}
+
+.input-group input:hover {
+  border-color: #785ffa;
+}
+
+.input-group input:focus {
+  outline: 3px solid rgba(120, 95, 250, 0.25);
+  border-color: #785ffa;
+}
+
+/* Google button */
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 12px 16px;
+
+  border: 1px solid #b9b9c3;
+  border-radius: 8px;
+  background: #ffffff;
+
+  color: #25252c;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.google-btn:hover {
+  background: #f7f7f9;
+  border-color: #888894;
+}
+
+.google-btn:focus-visible {
+  outline: 3px solid rgba(120, 95, 250, 0.35);
+  outline-offset: 2px;
+}
+
+/* Divider */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #666671;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #dedee5;
+}
+
+.divider span {
+  flex-shrink: 0;
+}
+
+/* Submit button */
+
+.form-box form > button[type="submit"] {
+  width: 100%;
+  padding: 12px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #785ffa;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.form-box form > button[type="submit"]:hover {
+  background: #6348e8;
+}
+
+.form-box form > button[type="submit"]:active {
+  transform: translateY(1px);
+}
+
+.form-box form > button[type="submit"]:focus-visible {
+  outline: 3px solid rgba(120, 95, 250, 0.35);
+  outline-offset: 2px;
+}
+
+/* Login link */
+
+.form-box > p {
+  margin: 24px 0 0;
+  text-align: center;
+  color: #4f4f59;
+  font-size: 14px;
+}
+
+.form-box > p a {
+  margin-left: 5px;
+  color: #5a43d6;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.form-box > p a:hover {
+  color: #4230ad;
+}
+
+.form-box > p a:focus-visible {
+  outline: 3px solid rgba(120, 95, 250, 0.35);
+  outline-offset: 2px;
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+
+  .form-box {
+    padding: 24px;
+  }
+
+  .form-box h1 {
+    font-size: 24px;
+  }
+}
