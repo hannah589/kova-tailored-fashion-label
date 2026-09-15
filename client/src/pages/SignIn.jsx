@@ -5,6 +5,7 @@ import { auth, googleProvider } from "../config/firebase"
 // import auth method from firebase, google pop-up/redirect
 //same google function for login and signup
 import { signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import Button from "../components/common/Button"
 
 function SignIn() {
   const navigate = useNavigate()
@@ -36,6 +37,7 @@ function SignIn() {
     }
   }
 
+  /*
   async function handleSignOut(e) {
     e.preventDefault();
 
@@ -47,38 +49,18 @@ function SignIn() {
 
     navigate('/');
   }
+*/
 
   return (
     <>
       <div className="form-container">
-       <div className="form-box">
-        <div>
-          <img
-            src="https://store.manutd.com/img/logo-trident.svg"
-            alt="logo"
-            className="form-logo"
-          />
-          <h1>Log-in</h1>
-        </div>
-      
-        <form onSubmit={handleLogin}>
-          <button 
-            className="google-btn" type="button"
-            onClick={handleLoginWithGoogle}
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-              alt="Google Logo"
-            />
-            Continue with Google
-          </button>
-
-          <div className="divider">
-            <span>OR</span>
+        <div className="form-box">
+          <div>
+            <h1>Log in</h1>
           </div>
-
+          <form onSubmit={handleLogin}>
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email:</label>
             <input 
               type="email" 
               id="email"
@@ -89,32 +71,43 @@ function SignIn() {
             />
           </div>
 
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input 
-              type="password"
-              id="password"
-              required
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {/*retrieve value entered into input form*/}
-            <Link to="/">Forgot password?</Link>
-          </div>
+            <div className="input-group">
+              <label htmlFor="password">Password:</label>
+              <input 
+                type="password"
+                id="password"
+                required
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Link className="link" to="/">Forgot password?</Link>
+            </div>
 
-          <button className="login-btn" type="submit">
-            Log in
-          </button>
-        </form>
+            <Button type="submit">
+              Log in
+            </Button>
 
-        <p className="register">
-          Not a member?
-          <Link to="/signup">Sign Up</Link>
-        </p>
+            <div className="divider">
+              <span>OR</span>
+            </div>
 
-    
-        <button onClick={handleSignOut}>Logout</button>
-      </div>
+            <button 
+              className="google-btn" type="button"
+              onClick={handleLoginWithGoogle}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                alt="Google Logo"
+              />
+              Continue with Google
+            </button>
+          </form>
+
+          <p>
+            Not a member?
+            <Link to="/signup" className="link">Sign Up</Link>
+          </p>
+        </div>
       </div>
     </>
   )

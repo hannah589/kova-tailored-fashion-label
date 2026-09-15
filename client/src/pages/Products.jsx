@@ -1,53 +1,93 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-//import { getProducts } from "../api/products";
-//import Container from '../components/Container'
+import { getAllProducts } from '../api/products';
+//import { products } from "../data/products";
+import Container from '../components/common/Container'
 import ProductCard from '../components/features/ProductCard'
 
-
 function Products() {
+  const { filter } = useParams();
 
-  /*
-  const Products = () => {
-  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  const [productsList, setProductsList] = useState([]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      const data = await getProducts();
-      setProducts(data);
-    };
+    async function fetchAllProducts(){
+      try {
+        const data = await getAllProducts();
+        setProductsList(data);
+      } catch (err) {
+        console.error(err);
+        navigate("/500")
+      }
+    }
 
-    loadProducts();
-  }, []);
-*/
+    fetchAllProducts();
+  },[navigate])
 
-  
-  const [products, setProducts] = useState([
-    {id:1, image:"https://cdn.media.amplience.net/i/ArsenalDirect/mkb1843_f?$pdpMainImage$", name:"Adidas 25/26 Training Shirt", price: 89.99 },
-    {id:2, image:"https://cdn.media.amplience.net/i/ArsenalDirect/mkb1843_f?$pdpMainImage$", price: 79.99 },
-    {id:3, image:"https://cdn.media.amplience.net/i/ArsenalDirect/mkb1843_f?$pdpMainImage$", price: 79.99 },
-  ])
+  let filteredProducts = productsList;
+  let heading = "Shop All";
+
+  //create a date var for 30 days ago
+  const thirtyDaysAgo = new Date();
+  //set thirtyDaysAgo as = (today's date - 30 days)
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  //check url for new
+  if (filter === "new") {
+    //change "Shop All" heading to "New"
+    heading = "New";
+
+    //go through every product in the products array
+    filteredProducts = productsList.filter(
+      //.toDate() converts the Firestore Timestamp into a JavaScript Date object.
+      (product) => product.createdAt?.toDate() >= 
+      //filter out the product created on or after the date from 30 days ago
+      thirtyDaysAgo
+    );
+  }
+
+  if (filter === "sale") {
+    heading = "Sale";
+    filteredProducts = productsList.filter(
+      (product) => product.salePrice > 0
+    );
+  }
+
+  if (filter === "mens") {
+    heading = "Mens";
+    filteredProducts = productsList.filter(product => product.gender === "men");
+  }
+
+  if (filter === "womens") {
+    heading = "Womens";
+    filteredProducts = productsList.filter(product => product.gender === "women");
+  }
 
   return (
     <>
-      <h1>Shop</h1>
-      {/*
-      <Container>
-        {products.map((p)=>(
-          <Link  
-            to={`/products/${products.id}`}
-            key={p.id}
-            className="link"
-          >
-            <ProductCard 
-              image={p.image}
-              name={p.name}
-              price={p.price}
-            />
-          </Link>
-        ))}
-      </Container>
-      */}
+      <section className='pageHeader'>
+        <h2>{heading}</h2>
+      </section>
+  
+      <section>
+        <Container>
+          {filteredProducts.map((product) => (
+            <Link
+              to={`/products/${product.id}`}
+              key={product.id}
+              style={{display: "block", width: "100%"}}
+            >
+              <ProductCard
+                image={product.image}
+                name={product.name}
+                price={product.price}
+              />
+            </Link>
+          ))}
+        </Container>
+      </section>
     </>
   )
 }

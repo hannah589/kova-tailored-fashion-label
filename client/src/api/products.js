@@ -13,13 +13,6 @@ import {
 //import db connection from firebase.js
 import { db } from "../config/firebase";
 
-/*
-const sampleProducts = [
-  { name: "T-shirt", price: 20.99, category: "apparel", stock: 10 },
-  { name: "Tote bag", price: 19.99, category: "accessories", stock: 20 },
-  { name: "Beanie", price: 16.99, category: "accessories", stock: 10 },
-];
-*/
 
 // ALL API PRODUCT FUNCTIONS
 // CREATE/ADD 
@@ -50,6 +43,7 @@ export async function getAllProducts() {
     }));
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 
@@ -69,6 +63,7 @@ export async function getProductById(productId) {
     };
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 

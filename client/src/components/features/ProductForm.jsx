@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createProduct, updateProduct } from "../../api/products";
+import { createProduct } from "../../api/products";
 
 function ProductForm() {
   const [name, setName] = useState("");

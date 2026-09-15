@@ -7,7 +7,7 @@ export default function Layout() {
     <div className="app-container">
       <Header /> 
       <main>
-        <Outlet /> {/* Dynamic child pages render here */}
+        <Outlet /> 
       </main>
       <Footer />
     </div>

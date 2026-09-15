@@ -1,17 +1,26 @@
-import styled from "styled-components";
+import "./Button.css";
 
-const StyledButton = styled.button`
-  padding: 12px 20px;
-  border-radius: 8px;
-  border: none;
+function Button({
+  children,
+  onClick,
+  type = "button",
+  variant = "primary", // 'primary', 'secondary', 'outline'
+  size = "md",         // 'sm', 'md', 'lg'
+  disabled = false,
+  className = "",
+}) { // Combine all classNames = .btn based on props
+  const classNames = `btn ${variant} ${size} ${disabled ? "disabled" : ""} ${className}`;
+  //use case: <Button variant="secondary" size="lg">
 
-`;
-
-function Button({ children, variant }) {
   return (
-    <StyledButton variant={variant}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={classNames}
+    >
       {children}
-    </StyledButton>
+    </button>
   );
 }
 

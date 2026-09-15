@@ -1,35 +1,8 @@
-import styles from "./Container.module.css";
-
-//after styled. must be a valid html element 
-const StyledContainer = styled.div`
-    margin: 1.6rem auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: .6em;
-
-    @media (max-width: 1024px) {
-      grid-template-columns: repeat(3, 1fr);
-      height: 400px;
-      padding: 0 3em;
-    }
-
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-      height: 320px;
-      padding: 0 1.5em;
-    }
-
-    @media (max-width: 480px) {
-      grid-template-columns: repeat(1fr);
-      height: 260px;
-      padding: 0 1em;
-    }
-  }
-`
+import styles from './Container.module.css'
 
 function Container({children}) {
   return (
-    <div className={StyleShe}>
+    <div className={styles.container}>
       {children}
     </div>
   )

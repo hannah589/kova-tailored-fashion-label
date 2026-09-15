@@ -1,13 +1,15 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 // import auth firebase connection
 import { auth, googleProvider } from "../config/firebase"
 // import auth method from firebase, google pop-up/redirect
 //same google function for login and signup
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import Button from "../components/common/Button"
 
 
 function SignUp() {
+  const navigate = useNavigate()
 
   // Create Form states for each input
   const [email, setEmail] = useState("");
@@ -20,8 +22,8 @@ function SignUp() {
     e.preventDefault();
 
     try {
-      //function to create user
-      //must accept auth, email, password only
+      //firebase function to create user
+      //only accepts auth, email, password only
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error(error);
@@ -47,24 +49,8 @@ function SignUp() {
         </div>
       
         <form onSubmit={handleSignUp}>
-          <button 
-            className="google-btn" 
-            type="button"
-            onClick={handleSignUpWithGoogle}
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-              alt="Google Logo"
-            />
-            Sign up with Google
-          </button>
-
-          <div className="divider">
-            <span>OR</span>
-          </div>
-
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email:</label>
             <input 
               type="email" 
               id="email"
@@ -76,7 +62,7 @@ function SignUp() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password:</label>
             <input 
               type="password"
               id="password"
@@ -87,16 +73,32 @@ function SignUp() {
               {/*retrieve value entered into input form*/}
           </div>
 
-          <button type="submit">
+           <Button type="submit">
             Sign Up
+          </Button>
+
+           <div className="divider">
+            <span>OR</span>
+          </div>
+
+          <button 
+            className="google-btn" 
+            type="button"
+            onClick={handleSignUpWithGoogle}
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+              alt="Google Logo"
+            />
+            Sign up with Google
           </button>
         </form>
 
-        <p>
-          Already a member?
-          <Link to="/signin">Log In</Link>
-        </p>
-      </div>
+          <p>
+            Already a member?
+            <Link to="/signin" className="link">Log In</Link>
+          </p>
+        </div>
       </div>
     </>
   )

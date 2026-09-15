@@ -4,13 +4,13 @@ import ProductForm from "../../components/features/ProductForm";
 
 function AdminDashboard() {
  
-  //Get All Product
-  const [products, setProducts] = useState([]);
+  //State to hold all product data 
+  const [productsList, setProductsList] = useState([]);
 
   useEffect(()=>{
     async function fetchAllProducts(){
       const data = await getAllProducts();
-      setProducts(data);
+      setProductsList(data);
     }
     fetchAllProducts();
   },[])
@@ -35,7 +35,7 @@ function AdminDashboard() {
         </thead>
 
         <tbody>
-          {products.map((product) => (
+          {productsList.map((product) => (
             <tr key={product.id}>
               <td>{product.name}</td>
               <td>{product.category}</td>
@@ -43,6 +43,7 @@ function AdminDashboard() {
               <td>{product.stock}</td>
               <td>
                 <button onClick={() => deleteProduct(product.id)}>Delete</button>
+                <button onClick={() => updateProduct(product.id)}>Update</button>
               </td>
             </tr>
           ))}
