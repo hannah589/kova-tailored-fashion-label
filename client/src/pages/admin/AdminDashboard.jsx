@@ -1,58 +1,68 @@
-import { useState, useEffect } from "react"
-import { getAllProducts, deleteProduct, updateProduct } from "../../api/products"
-import ProductForm from "../../components/features/ProductForm";
+import { useState, useEffect } from "react";
+import {
+  getAllProducts,
+  deleteProduct,
+  updateProduct,
+} from "../../api/products";
+import ProductForm from "../../components/admin/ProductForm";
+import { useAuth } from "../../contexts/AuthContext";
 
 function AdminDashboard() {
- 
-  //State to hold all product data 
+  const { user } = useAuth();
+
+  //State to hold all product data
   const [productsList, setProductsList] = useState([]);
 
-  useEffect(()=>{
-    async function fetchAllProducts(){
+  useEffect(() => {
+    async function fetchAllProducts() {
       const data = await getAllProducts();
       setProductsList(data);
     }
     fetchAllProducts();
-  },[])
+  }, []);
 
   return (
     <>
       <h1>Admin Dashboard</h1>
+      {/*<p>{user.firstName}</p> */}
+
       <ProductForm />
 
-      
       <section>
         <h2>Products</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {productsList.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.category}</td>
-              <td>${product.price}</td>
-              <td>{product.stock}</td>
-              <td>
-                <button onClick={() => deleteProduct(product.id)}>Delete</button>
-                <button onClick={() => updateProduct(product.id)}>Update</button>
-              </td>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {productsList.map((product) => (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.category}</td>
+                <td>${product.price}</td>
+                <td>{product.stock}</td>
+                <td>
+                  <button onClick={() => deleteProduct(product.id)}>
+                    Delete
+                  </button>
+                  <button onClick={() => updateProduct(product.id)}>
+                    Update
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
-      
     </>
-  )
+  );
 }
 
-export default AdminDashboard
+export default AdminDashboard;

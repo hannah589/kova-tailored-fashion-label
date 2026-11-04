@@ -1,26 +1,30 @@
-import { auth, googleProvider } from "../config/firebase"
-// import auth method from firebase, google pop-up/redirect
-//same google function for login and signup
-import { signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+//custom axios in api file
+import api from "./api";
 
-export async function handleSignUp(e) {
-    e.preventDefault();
-
-    try {
-      //function to create user
-      //must accept auth, email, password only
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-    }
+export async function register(data){
+  try {
+    const res = await api.post(
+      "api/auth/register",
+      data
+    );
+    console.log(res?.data)
+    //return response/api data 
+    return res.data;
+  } catch (err) {
+    console.error(err)
   }
+};
 
-export async function handleSignUpWithGoogle(e) {
-    e.preventDefault();
-
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-      console.error(error);
-    }
+export async function login(data){
+  try {
+    const res = await api.post(
+      "api/auth/login",
+      data
+    );
+    console.log(res?.data)
+    //return response/api data 
+    return res.data;
+  } catch (err) {
+    console.error(err)
   }
+};

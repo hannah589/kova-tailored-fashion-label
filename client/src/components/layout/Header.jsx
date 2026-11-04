@@ -1,38 +1,65 @@
-import { NavLink } from 'react-router-dom';
-import { LuSearch, LuHeart, LuShoppingBag, LuCircleUserRound } from "react-icons/lu";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useCartStore } from "../../store/useCartStore";
+//import { useAuthStore } from '../../store/useAuthStore'
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  LuSearch,
+  LuHeart,
+  LuShoppingBag,
+  LuCircleUserRound,
+} from "react-icons/lu";
 import styles from "./Header.module.css";
-//import PromoBanner from '../features/PromoBanner';
+import PromoBanner from "../features/PromoBanner";
 
 function Header() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/");
+  }
+
+  //grab out what zustand state and function you need to use
+  const cartItems = useCartStore((state) => state.cartItems);
+  //if use SlideOut. Add onClick={openCart} to the button
+  //const openCart = useCartStore((state) => state.openCart);
+
+  //calculate the total item count for the badge bubble
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <>
-      {/* <PromoBanner /> */}
+      <PromoBanner />
       <header className={styles.header}>
         <nav className={styles.nav}>
           <ul>
             <li>
-              <NavLink 
+              <NavLink
                 to="/shop/new"
                 className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "active" : "" }
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
               >
-                <h6>New</h6> 
+                <h6>New</h6>
               </NavLink>
             </li>
             <li>
-              <NavLink 
+              <NavLink
                 to="/shop/womens"
                 className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "active" : "" }
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
               >
                 <h6>Women</h6>
               </NavLink>
             </li>
             <li>
-              <NavLink 
+              <NavLink
                 to="/shop/mens"
                 className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "active" : "" }
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
               >
                 <h6>Men</h6>
               </NavLink>
@@ -49,10 +76,11 @@ function Header() {
             </li>
             */}
             <li>
-              <NavLink 
+              <NavLink
                 to="/shop/sale"
                 className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "active" : "" }
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
               >
                 <h6>Sale</h6>
               </NavLink>
@@ -61,30 +89,55 @@ function Header() {
         </nav>
 
         <div className={styles.logo}>
-          <NavLink to="/">
-            AURA
-          </NavLink>
+          <NavLink to="/">AURA</NavLink>
         </div>
 
         <div className={styles.icons}>
           <button>
             <LuSearch size={24} />
           </button>
-          <NavLink to="/signup">
-            <div className={styles.icon}>
-              <LuCircleUserRound size={24} />
-            </div>
-          </NavLink>
-          <NavLink to='/wishlist'>
+
+          {user ? (
+            <>
+              <NavLink to="/profile">Profile</NavLink>
+
+              <button onClick={handleLogout}>Logout</button>
+
+              <NavLink to="/admin">
+                <div className={styles.icon}>Admin Dashboard</div>
+              </NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/signin">
+                <div className={styles.icon}>
+                  <LuCircleUserRound size={24} />
+                  Login
+                </div>
+              </NavLink>
+              <NavLink to="/signup">
+                <div className={styles.icon}>
+                  <LuCircleUserRound size={24} />
+                  Register
+                </div>
+              </NavLink>
+            </>
+          )}
+
+          <NavLink to="/wishlist">
             <LuHeart size={24} />
           </NavLink>
-          <NavLink to='/cart'>
+          {/* Click triggers Zustand state update anywhere in the app */}
+          <NavLink to="/cart" className={styles.cart}>
+            {/*<button className={styles.cart}>*/}
             <LuShoppingBag size={24} />
+            <span>{totalItems}</span>
+            {/*</button>*/}
           </NavLink>
         </div>
       </header>
     </>
-  )
-};
+  );
+}
 
-export default Header
+export default Header;

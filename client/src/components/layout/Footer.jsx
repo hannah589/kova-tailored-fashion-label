@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link } from 'react-router-dom'
 import Button from '../common/Button'
 import styles from "./Footer.module.css";
+import { LuPackage, LuShoppingBag, LuRotateCcw} from 'react-icons/lu';
 
 function Footer() {
 
@@ -11,23 +12,24 @@ function Footer() {
       e.preventDefault();
     }
 
-  const date = new Date();
-
   return (
     <>
-      {/*
+    
       <div className={styles.banner}>
         <div className={styles.label}>
+          <LuPackage className={styles.icon}/>
           <p>Free Shipping on Order over $100</p>
         </div>
         <div className={styles.label}>
+          <LuShoppingBag className={styles.icon}/>
           <p>Delivery and Click & Collect Options</p>
         </div>
         <div className={styles.label}>
+          <LuRotateCcw className={styles.icon}/>
           <p>14 Days Return</p>
         </div>
       </div>
-      */}
+      
 
       <footer className={styles.footer}>
         <div className={styles.main}>
@@ -107,9 +109,10 @@ function Footer() {
                   name="email"
                   required 
                   placeholder="Email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button variant="secondary" size="sm" type="submit">
+                <Button size="sm" type="submit">
                   Subscribe
                 </Button>
               </div>
@@ -126,7 +129,7 @@ function Footer() {
           </div>
           
           <p className={styles.copyright}> 
-            © {date.getFullYear()} AURA
+            &copy; {new Date().getFullYear()} Aura
           </p>
         </div>
       </footer>

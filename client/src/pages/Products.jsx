@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getAllProducts } from '../api/products';
 //import { products } from "../data/products";
+import { Dropdown, DropdownItem } from "flowbite-react";
 import Container from '../components/common/Container'
 import ProductCard from '../components/features/ProductCard'
 
@@ -69,6 +70,17 @@ function Products() {
     <>
       <section className='pageHeader'>
         <h2>{heading}</h2>
+        <div>
+          <button>FILTER</button>
+          <Dropdown label="SORT" inline className='flex'>
+            <DropdownItem>Featured</DropdownItem>
+            <DropdownItem>New In</DropdownItem>
+            <DropdownItem>Best Selling</DropdownItem>
+            <DropdownItem>Price: Low to High</DropdownItem>
+            <DropdownItem>Price: High to Low</DropdownItem>
+          </Dropdown>
+  
+        </div>
       </section>
   
       <section>

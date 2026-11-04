@@ -11,10 +11,6 @@ const banners = [
     text: "Click & Collect Now Available", 
     link: "/products?filter=sale", 
   },
-  { 
-    text: "Shop Sale",
-    link: "/shop?filter=sale"
-  }, 
 ];
 
 function PromoBanner() {

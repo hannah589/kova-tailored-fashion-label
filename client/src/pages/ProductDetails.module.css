@@ -1,0 +1,18 @@
+.product_details{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2em;
+}
+
+.product_content{
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.img_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}

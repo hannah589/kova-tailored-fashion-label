@@ -28,12 +28,11 @@ function Home() {
         title="Spring Summer 2026"
         bgImage="https://friendswithfrank.com/cdn/shop/files/SS26_Release_Two_Homepage.jpg?v=1788747787&width=2400"
       /> 
-
-      <section className="New Arrivals">
-        <div className="section-heading">
-          <span>NEW ARRIVALS</span>
-          <h2>Spring Summer 26</h2>
-        </div>
+      <section className={styles.section}>
+        <span>NEW ARRIVALS</span>
+        <h2>Spring Summer 26</h2>
+      </section>
+      <section>
         <Container>
           {/*Map through products state/array */}
           {productsList.map((p)=>(
@@ -51,15 +50,18 @@ function Home() {
           ))}
         </Container>
         <Link to="/shop">
-          <Button>View All Products</Button>
+          <Button>
+            View All Products
+          </Button>
         </Link>
       </section>
+    
 
       <div className={styles.shopWomensOrMens}>
         <Link to="/shop/womens">
           <div className="img_box">
             <img
-              src="https://blocks.astratic.com/img/general-img-landscape.png"
+              src="https://friendswithfrank.com/cdn/shop/files/Knitwear_Block_-_1_b6cba785-7ceb-4747-a8e3-dee76199684d.jpg?v=1788756300&width=1000"
               alt="women's clothing"
               loading="lazy"
             />
@@ -69,8 +71,8 @@ function Home() {
         <Link to="/shop/mens">
           <div className="img_box">
             <img
-              src="https://blocks.astratic.com/img/general-img-landscape.png"
-              alt="women's clothing"
+              src="https://assemblylabel.com/cdn/shop/files/CTA-Mens-Tees_f7e4ad75-60b9-4b54-8c35-dd60cfa77895_320x.jpg?v=1788307519"
+              alt="Men's clothing"
               loading="lazy"
             />
             <Button className='btn'>Shop Mens</Button>
@@ -78,8 +80,8 @@ function Home() {
         </Link>
       </div>
 
-       <div className="section-heading">
-          <h2 style={{paddingBottom: "1em"}}>Follow Us</h2>
+       <section className={styles.section}>
+          <h2>Follow Us</h2>
           <p>Shop your favourite styles from Instagram  
             <a
               href="https://www.instagram.com/clothes"
@@ -91,7 +93,7 @@ function Home() {
                @auralabel
             </a>
           </p>
-      </div>
+      </section>
 
 
     </>

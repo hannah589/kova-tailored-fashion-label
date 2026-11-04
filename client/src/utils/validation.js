@@ -1,7 +1,6 @@
 //File: src/utils/validation.js
 //this file will hold client-side validation functions
 
-//create 3 functions: 
 // is_Empty. takes one param value: input we wish to check 
 // this function will check the passed value. chick if undefined, null an empty obj or empty string
 //return true if any of the tests are true, false otherwise
@@ -9,7 +8,7 @@
 
 //take in value. check if value is undefined or null
 //will return true
-export const is_Empty = (value) =>
+export const isEmpty = (value) =>
   value === undefined || value === null ||
   (typeof value === 'object' && Object.keys(value).length === 0 ) ||
   (typeof value === 'string' && value.trim().length === 0)
@@ -35,3 +34,12 @@ export const isValidPrice = (value) => {
   const result = ex.test(value);
   return result;
 }
+
+export const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+export const isValidPassword = (value) => {
+  const ex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,64}$/;
+  return ex.test(value);
+};

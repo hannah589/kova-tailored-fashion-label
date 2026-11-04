@@ -28,6 +28,7 @@ export async function createProduct(productData) {
     return docRef.id;
   } catch (err) {
     console.error(err);
+    throw err;
   }
 }
 
@@ -77,6 +78,7 @@ export async function updateProduct(productId, updates) {
     await updateDoc(productRef, updates)
   }catch(err){
     console.error(err)
+    throw err;
   }
 }
 
@@ -87,6 +89,7 @@ export async function deleteProduct(productId) {
     console.log("Successfully deleted:", productId);
   }catch(err){
     console.error(err)
+    throw err;
   }    
 }
 
@@ -104,6 +107,7 @@ export async function decrementStock(productId, quantityPurchased) {
     });
   } catch (err) {
     console.error(err)
+    throw err;
   }
 }
     

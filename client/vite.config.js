@@ -1,13 +1,31 @@
-import react from '@vitejs/plugin-react'
+// Import Vite's configuration helper
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import flowbiteReact from "flowbite-react/plugin/vite";
+// Import the React plugin for Vite
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    // Enables React support
     react(),
-    tailwindcss(),
-    flowbiteReact()
   ],
-})
+  server: {
+    //CLIENT SIDE PORT
+    port: 3000,
+
+    proxy: { 
+      //SERVER SIDE PORT PROXY
+      //Proxy API requests from Vite to Express
+      //fetch("http://localhost:4000/api/auth/login") turns to fetch("/api/auth/login")
+      '/api': {
+        //not https. this is a testing server
+        //location of the backend, express server
+        target: "http://localhost:4000",
+        //changes the http headers origin to the target server
+        changeOrigin: true,
+        //remove the secure
+        //if true, verifies HTTP certificates
+        secure: false,
+      },
+    },
+  },
+});
