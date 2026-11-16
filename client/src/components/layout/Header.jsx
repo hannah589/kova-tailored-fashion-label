@@ -110,16 +110,7 @@ function Header() {
           ) : (
             <>
               <NavLink to="/signin">
-                <div className={styles.icon}>
                   <LuCircleUserRound size={24} />
-                  Login
-                </div>
-              </NavLink>
-              <NavLink to="/signup">
-                <div className={styles.icon}>
-                  <LuCircleUserRound size={24} />
-                  Register
-                </div>
               </NavLink>
             </>
           )}

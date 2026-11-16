@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2em;
+  padding: 4em;
 }
 
 .product_content{

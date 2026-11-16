@@ -9,7 +9,7 @@ function Button({
   disabled = false,
   className = "",
 }) { // Combine all classNames = .btn based on props
-  const classNames = `btn ${variant} ${size} ${disabled ? true : false} ${className}`;
+  const classNames = `btn ${variant} ${size} $${disabled ? "disabled" : ""} ${className}`;
   //use case: <Button variant="secondary" size="lg">
 
   return (

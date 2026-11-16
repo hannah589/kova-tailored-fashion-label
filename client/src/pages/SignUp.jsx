@@ -10,7 +10,7 @@ import { isValidPassword } from "../utils/validation";
 import Button from "../components/common/Button";
 import { toast } from "sonner";
 import { useAuth } from "../contexts/AuthContext";
-import { register } from "../api/auth"
+import { register } from "../api/auth";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -33,8 +33,6 @@ function SignUp() {
   const { firstName, lastName, email, password, confirmPassword, errors } =
     formData;
 
-  const [loading, setLoading] = useState(false);
-
   // update form input values
   function onChange(e) {
     setFormData((prev) => ({
@@ -52,7 +50,6 @@ function SignUp() {
   async function handleSignUp(e) {
     //prevent form for refreshing
     e.preventDefault();
-    setLoading(true);
 
     //create an empty object to store validation errors
     const errors = {};
@@ -79,17 +76,9 @@ function SignUp() {
       return;
     }
 
-    setLoading(true);
-
     try {
       //api call: send signup form data to backend
-      const response = await register(
-        "api/auth/register",
-        formData
-      );
-
-      // Axios automatically parses the JSON response in javascript object
-      console.log(response.data);
+      const response = await register({ firstName, lastName, email, password });
 
       //save user and jwt in auth context
       login(response.data);
@@ -102,35 +91,15 @@ function SignUp() {
       // Navigate home
       navigate("/");
     } catch (err) {
-      // Get backend validation errors
-      const backendErrors = err.response?.data?.errors;
-
-      if (backendErrors && Array.isArray(backendErrors)) {
-        const fieldErrors = {};
-
-        backendErrors.forEach((error) => {
-          fieldErrors[error.field] = error.message;
-        });
-
-        setFormData((prev) => ({
-          ...prev,
-          errors: fieldErrors,
-        }));
-      } else {
-        // Handle other errors (e.g. email already exists)
-        setFormData((prev) => ({
-          ...prev,
-          errors: {
-            ...prev.errors,
-            form:
-              err.response?.data?.message ||
-              "Account creation failed. Please try again.",
-          },
-        }));
-      }
-    } finally {
-      // Always stop loading, whether successful or unsuccessful
-      setLoading(false);
+      console.error("Signup error:", err);
+      
+      setFormData((prev) => ({
+        ...prev,
+        errors: {
+          ...prev.errors,
+          form: "Account creation failed. Please try again.",
+        },
+      }));
     }
   }
 
@@ -271,8 +240,8 @@ function SignUp() {
               </div>
             )}
 
-            <Button type="submit" disabled={loading}>
-              {loading ? "Creating account..." : "Sign Up"}
+            <Button type="submit">
+              Sign Up
             </Button>
 
             <div className="divider">

@@ -1,15 +1,17 @@
 import { useState } from "react"
-//import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { priceFormatter } from "../../utils/formatter";
 //import { IoIosHeart } from "react-icons/io";
 import styles from './ProductCard.module.css'
 
-function ProductCard({image, name, price}) {
+function ProductCard({image, name, price, salePrice}) {
+  /*
     const [liked, setLiked] = useState(false);
 
     function handleFavourite() {
         setLiked(prev => !prev);
     }
-  
+  */
   return (
     <>
         <div className={styles.card}>
@@ -31,7 +33,19 @@ function ProductCard({image, name, price}) {
           </div>
         <div className={styles.product_card_content}>
           <p>{name}</p>
-          <p>$ {Number(price).toFixed(2)}</p>
+          <div className="flex gap-2">
+            {
+              salePrice > 0 ? 
+                (
+                  <div className="flex gap-2">
+                    <p className="!line-through">{priceFormatter(price)}</p>
+                    <p className="!text-red-500">{priceFormatter(salePrice)}</p>
+                  </div>
+                )
+                :
+                <p>{priceFormatter(price)}</p> 
+            }
+          </div>
         </div>
       </div>
     </>

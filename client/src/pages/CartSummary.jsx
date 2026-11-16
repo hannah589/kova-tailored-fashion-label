@@ -73,7 +73,7 @@ function CartSummary() {
         <div>
           <h2>Order Summary</h2>
           <p>Subtotal: {subTotal.toFixed(2)}</p>
-          <p>{discount > 0 && (<p>Discount: -${discount.toFixed(2)}</p>)}</p>
+          <p>{discount > 0 && (<span>Discount: -${discount.toFixed(2)}</span>)}</p>
           <p>Estimated Shipping: {deliveryFee === 0 ? "FREE" : `$${deliveryFee.toFixed(2)}`}</p>
           <p>Total :{total.toFixed(2)}</p>
           <button>GO TO CHECKOUT</button>

@@ -1,33 +1,33 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { getAllProducts } from '../api/products'
-import Button from "../components/common/Button"
-import ProductCard from '../components/features/ProductCard'
-import HeroSection from '../components/features/HeroSection'
-import Container from '../components/common/Container'
-import styles from './Home.module.css'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+//import { getAllProducts } from "../api/products";
+import productAPI from "../api/productAPI";
+import Button from "../components/common/Button";
+import ProductCard from "../components/features/ProductCard";
+import HeroSection from "../components/features/HeroSection";
+import Container from "../components/common/Container";
+import styles from "./Home.module.css";
 
 function Home() {
-
-  //State to hold all product data 
+  //State to hold all product data
   const [productsList, setProductsList] = useState([]);
 
   //mount products from api, when page mounts
-  useEffect(()=>{
-    async function fetchAllProducts(){
-      const data = await getAllProducts();
+  useEffect(() => {
+    async function fetchAllProducts() {
+      const data = await productAPI.getAllProducts();
       setProductsList(data);
     }
     fetchAllProducts();
-  },[])
+  }, []);
 
   return (
     <>
-      <HeroSection 
+      <HeroSection
         subtitle="Release two"
         title="Spring Summer 2026"
         bgImage="https://friendswithfrank.com/cdn/shop/files/SS26_Release_Two_Homepage.jpg?v=1788747787&width=2400"
-      /> 
+      />
       <section className={styles.section}>
         <span>NEW ARRIVALS</span>
         <h2>Spring Summer 26</h2>
@@ -35,27 +35,20 @@ function Home() {
       <section>
         <Container>
           {/*Map through products state/array */}
-          {productsList.map((p)=>(
-            <Link  
+          {productsList.map((p) => (
+            <Link
               to={`/products/${productsList.id}`}
               key={p.id}
               className="link"
             >
-              <ProductCard 
-                image={p.image}
-                name={p.name}
-                price={p.price}
-              />
+              <ProductCard image={p.image} name={p.name} price={p.price} />
             </Link>
           ))}
         </Container>
         <Link to="/shop">
-          <Button>
-            View All Products
-          </Button>
+          <Button>View All Products</Button>
         </Link>
       </section>
-    
 
       <div className={styles.shopWomensOrMens}>
         <Link to="/shop/womens">
@@ -65,7 +58,7 @@ function Home() {
               alt="women's clothing"
               loading="lazy"
             />
-            <Button className='btn'>Shop Womens</Button>
+            <Button className="btn">Shop Womens</Button>
           </div>
         </Link>
         <Link to="/shop/mens">
@@ -75,29 +68,28 @@ function Home() {
               alt="Men's clothing"
               loading="lazy"
             />
-            <Button className='btn'>Shop Mens</Button>
+            <Button className="btn">Shop Mens</Button>
           </div>
         </Link>
       </div>
 
-       <section className={styles.section}>
-          <h2>Follow Us</h2>
-          <p>Shop your favourite styles from Instagram  
-            <a
-              href="https://www.instagram.com/clothes"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              style={{paddingLeft: "8px"}}
-            >
-               @auralabel
-            </a>
-          </p>
+      <section className={styles.section}>
+        <h2>Follow Us</h2>
+        <p>
+          Shop your favourite styles from Instagram
+          <a
+            href="https://www.instagram.com/clothes"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            style={{ paddingLeft: "8px" }}
+          >
+            @auralabel
+          </a>
+        </p>
       </section>
-
-
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

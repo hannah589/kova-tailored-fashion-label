@@ -1,3 +1,4 @@
+// Client, server side set-up
 // import Firebase functions: 
 import {
   collection, // reference to collection/table

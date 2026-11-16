@@ -7,7 +7,7 @@ import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import Button from "../components/common/Button";
 import { useAuth } from "../contexts/AuthContext";
-import { login } from "../api/auth"
+import { login } from "../api/auth";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ function SignIn() {
 
   const { email, password } = formData;
 
-  const [loading, setLoading] = useState(false);
 
   // update form input values
   function onChange(e) {
@@ -41,26 +40,17 @@ function SignIn() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    setLoading(true);
 
     try {
       //send email and pw to api server, endpoint
-      const response = await axios.post("/api/auth/login", { email, password });
-
-      // Axios automatically parses the JSON response in javascript object
-      console.log(response.data);
-
+      const response = await login({ email, password });
       //save user and jwt in auth context
       login(response.data);
-
-      console.log("Login successful");
-      // Login successful
+      // Login successful, navigate to user profile
       navigate("/profile");
     } catch (err) {
-      console.error("Login failed:", err?.response);
-      //To do: add form login error
-      setTimeout(() => (setLoading(false), 1000));
-    }
+      console.log(err);
+    } 
   }
 
   //google login
@@ -109,13 +99,13 @@ function SignIn() {
                 value={password}
                 onChange={onChange}
               />
-              <Link className="link" to="/">
+              <Link className="link" to="/forgotPassword">
                 Forgot password?
               </Link>
             </div>
 
-            <Button type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Sign In"}
+            <Button type="submit">
+              Submit
             </Button>
 
             <div className="divider">

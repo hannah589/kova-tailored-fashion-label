@@ -19,7 +19,7 @@ export default defineConfig({
       '/api': {
         //not https. this is a testing server
         //location of the backend, express server
-        target: "http://localhost:4000",
+        target: "http://localhost:4000/api",
         //changes the http headers origin to the target server
         changeOrigin: true,
         //remove the secure

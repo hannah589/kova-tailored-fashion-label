@@ -127,6 +127,11 @@ p{
   font-size: 14px;
 }
 
+.btnlink{
+  font-size: 14px;
+  font-weight: 300;
+}
+
 p a { 
   text-decoration: underline; 
   text-underline-offset: 3px; 
@@ -183,6 +188,7 @@ svg {
   width: 100%;
   max-width: 440px;
   padding: 32px;
+  margin: 4em;
   border: 0.8px solid var(--color-border);
   
   h1{
